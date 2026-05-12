@@ -56,7 +56,7 @@ async function handler(req, res) {
     }
 
     const blob = await put(filePath, finalBody, {
-      access: 'public',
+      access: 'private',
       contentType: req.headers['content-type'] || 'application/octet-stream',
       addRandomSuffix: false,
       allowOverwrite: true
