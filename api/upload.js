@@ -22,8 +22,34 @@ export default async function handler(req, res) {
   const filePath = folder === 'root' ? fileName : `${folder}/${fileName}`;
 
   try {
-    const blob = await put(filePath, req, {
+    // Ler o stream manualmente para um Buffer (suporta envio cru)
+    const chunks = [];
+    for await (const chunk of req) {
+      chunks.push(chunk);
+    }
+    let fileData = Buffer.concat(chunks);
+
+    // Se o stream estiver vazio, o Vercel ou o servidor de dev local (ex: express) 
+    // já pode ter parseado o corpo automaticamente. Vamos tentar usar o req.body
+    if (fileData.length === 0 && req.body) {
+      if (typeof req.body === 'string' || Buffer.isBuffer(req.body)) {
+        fileData = req.body;
+      } else {
+        // Se foi parseado como JSON ou objeto
+        fileData = JSON.stringify(req.body);
+        if (fileData === '{}') fileData = '';
+      }
+    }
+
+    if (fileData.length === 0) {
+      console.error('O corpo da requisição está vazio.');
+      return res.status(400).json({ error: 'Empty request body' });
+    }
+
+    const blob = await put(filePath, fileData, {
       access: 'private',
+      contentType: req.headers['content-type'] || 'application/octet-stream',
+      addRandomSuffix: false
     });
 
     return res.status(200).json(blob);
