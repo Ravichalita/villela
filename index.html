@@ -236,6 +236,40 @@ body {
   line-height: 1.65;
 }
 
+/* ── UPLOAD DROP ZONE ── */
+.drop-zone {
+  border: 1.5px dashed var(--gold);
+  border-radius: var(--radius-sm);
+  padding: 24px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 16px;
+  background: rgba(195, 164, 126, 0.05);
+  color: var(--blue);
+}
+.drop-zone:hover, .drop-zone.dragover {
+  border-color: var(--blue);
+  background: rgba(195, 164, 126, 0.15);
+}
+.drop-zone i {
+  font-size: 28px;
+  color: var(--gold);
+  margin-bottom: 8px;
+  display: block;
+}
+.drop-zone p {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 500;
+}
+.drop-zone span {
+  display: block;
+  font-size: 11.5px;
+  color: var(--text-mute);
+  margin-top: 4px;
+}
+
 /* ── TAGS ── */
 .tag-row {
   display: flex;
@@ -587,7 +621,12 @@ body {
           <label class="media-item"><input type="checkbox" value="Fotos no ambiente da clínica"> <span>Fotos no ambiente da clínica</span></label>
           <label class="media-item"><input type="checkbox" value="Nenhuma — precisamos produzir"> <span>Nenhuma — precisamos produzir</span></label>
         </div>
-        <input type="file" id="f_upload_midia" multiple accept="image/*,video/*" style="margin-top: 12px; font-size: 13px;" onchange="uploadFiles(this, 'midia_sobre', 'status_midia')">
+        <div class="drop-zone" onclick="document.getElementById('f_upload_midia').click()" ondragover="event.preventDefault(); this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="event.preventDefault(); this.classList.remove('dragover'); const input = document.getElementById('f_upload_midia'); input.files = event.dataTransfer.files; uploadFiles(input, 'midia_sobre', 'status_midia')">
+          <i class="ti ti-cloud-upload"></i>
+          <p>Clique ou arraste as fotos/vídeos aqui para enviar</p>
+          <span>Formatos suportados: JPG, PNG, MP4</span>
+          <input type="file" id="f_upload_midia" multiple accept="image/*,video/*" style="display: none;" onchange="uploadFiles(this, 'midia_sobre', 'status_midia')">
+        </div>
         <div id="status_midia" class="hint" style="color: var(--gold-dark); margin-top: 5px; display: none;"></div>
       </div>
     </div>
@@ -652,7 +691,12 @@ body {
           <label class="media-item"><input type="checkbox" value="Avaliações Google (capturas de tela)"> <span>Avaliações Google (capturas)</span></label>
           <label class="media-item"><input type="checkbox" value="Não possuo — vou coletar"> <span>Não possuo — vou coletar</span></label>
         </div>
-        <input type="file" id="f_upload_depo" multiple accept="image/*,video/*" style="margin-top: 12px; font-size: 13px;" onchange="uploadFiles(this, 'depoimentos', 'status_depo')">
+        <div class="drop-zone" onclick="document.getElementById('f_upload_depo').click()" ondragover="event.preventDefault(); this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="event.preventDefault(); this.classList.remove('dragover'); const input = document.getElementById('f_upload_depo'); input.files = event.dataTransfer.files; uploadFiles(input, 'depoimentos', 'status_depo')">
+          <i class="ti ti-cloud-upload"></i>
+          <p>Clique ou arraste os arquivos de depoimento aqui para enviar</p>
+          <span>Formatos suportados: JPG, PNG, MP4</span>
+          <input type="file" id="f_upload_depo" multiple accept="image/*,video/*" style="display: none;" onchange="uploadFiles(this, 'depoimentos', 'status_depo')">
+        </div>
         <div id="status_depo" class="hint" style="color: var(--gold-dark); margin-top: 5px; display: none;"></div>
       </div>
     </div>
@@ -673,7 +717,12 @@ body {
           <label class="media-item"><input type="checkbox" value="Fachada externa"> <span>Fachada externa</span></label>
           <label class="media-item"><input type="checkbox" value="Equipamentos / tecnologia"> <span>Equipamentos / tecnologia</span></label>
         </div>
-        <input type="file" id="f_upload_fotos" multiple accept="image/*,video/*" style="margin-top: 12px; font-size: 13px;" onchange="uploadFiles(this, 'fotos_clinica', 'status_fotos')">
+        <div class="drop-zone" onclick="document.getElementById('f_upload_fotos').click()" ondragover="event.preventDefault(); this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="event.preventDefault(); this.classList.remove('dragover'); const input = document.getElementById('f_upload_fotos'); input.files = event.dataTransfer.files; uploadFiles(input, 'fotos_clinica', 'status_fotos')">
+          <i class="ti ti-cloud-upload"></i>
+          <p>Clique ou arraste as fotos da clínica aqui para enviar</p>
+          <span>Formatos suportados: JPG, PNG, MP4</span>
+          <input type="file" id="f_upload_fotos" multiple accept="image/*,video/*" style="display: none;" onchange="uploadFiles(this, 'fotos_clinica', 'status_fotos')">
+        </div>
         <div id="status_fotos" class="hint" style="color: var(--gold-dark); margin-top: 5px; display: none;"></div>
       </div>
 
