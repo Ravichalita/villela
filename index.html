@@ -873,20 +873,16 @@ function goBack() { if (cur > 0) goTo(cur - 1); }
 function goNext() { if (cur === secs.length - 2) generateBriefing(); if (cur < secs.length - 1) goTo(cur + 1); }
 function toggleTag(el) { el.classList.toggle('sel'); }
 
-document.querySelectorAll('.media-item').forEach(el => {
-  el.addEventListener('click', function(e) {
-    if (e.target.tagName !== 'INPUT') { const cb = this.querySelector('input'); cb.checked = !cb.checked; }
-    this.classList.toggle('checked', this.querySelector('input').checked);
+document.querySelectorAll('.media-item input').forEach(input => {
+  input.addEventListener('change', function() {
+    this.closest('.media-item').classList.toggle('checked', this.checked);
   });
 });
-document.querySelectorAll('.radio-item').forEach(el => {
-  el.addEventListener('click', function(e) {
-    const nm = this.querySelector('input').name;
-    document.querySelectorAll('.radio-item').forEach(r => {
-      if (r.querySelector('input') && r.querySelector('input').name === nm) r.classList.remove('checked');
+document.querySelectorAll('.radio-item input').forEach(input => {
+  input.addEventListener('change', function() {
+    document.querySelectorAll(`input[name="${this.name}"]`).forEach(r => {
+      r.closest('.radio-item').classList.toggle('checked', r.checked);
     });
-    if (e.target.tagName !== 'INPUT') this.querySelector('input').checked = true;
-    this.classList.add('checked');
   });
 });
 
