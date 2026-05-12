@@ -12,11 +12,17 @@ export default async function handler(req, res) {
   }
 
   // Pegamos o nome da pasta e do arquivo pelos cabeçalhos
-  const folder = req.headers['x-folder-name'] || 'outros';
+  let folder = req.headers['x-folder-name'];
   const fileName = req.headers['x-file-name'] || 'file';
 
+  if (!folder) {
+    folder = 'outros';
+  }
+
+  const filePath = folder === 'root' ? fileName : `${folder}/${fileName}`;
+
   try {
-    const blob = await put(`${folder}/${fileName}`, req, {
+    const blob = await put(filePath, req, {
       access: 'private',
     });
 
