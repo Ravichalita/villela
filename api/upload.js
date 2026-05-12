@@ -41,23 +41,25 @@ export default async function handler(req, res) {
       }
     }
 
-    if (fileData.length === 0) {
-      console.error('O corpo da requisição está vazio.');
-      return res.status(400).json({ error: 'Empty request body' });
+    // Se ainda estiver vazio (mesmo após os fallbacks), em vez de falhar,
+    // colocamos um texto de aviso para sabermos que chegou vazio.
+    if (fileData.length === 0 || (typeof fileData === 'string' && fileData.trim() === '')) {
+      fileData = Buffer.from("ERRO DIAGNÓSTICO: O Vercel recebeu um corpo vazio do formulário.", "utf-8");
     }
 
     // Para arquivos de texto (briefing.txt), convertemos o Buffer explicitamente
     // para String. Algumas versões internas do Vercel Blob (undici/fetch)
     // falham ao ler Buffers puros, resultando em uploads de 0 bytes.
     let finalBody = fileData;
-    if (fileName.endsWith('.txt')) {
+    if (fileName.endsWith('.txt') || fileName.endsWith('.doc')) {
       finalBody = Buffer.isBuffer(fileData) ? fileData.toString('utf8') : String(fileData);
     }
 
     const blob = await put(filePath, finalBody, {
-      access: 'private',
+      access: 'public',
       contentType: req.headers['content-type'] || 'application/octet-stream',
-      addRandomSuffix: false
+      addRandomSuffix: false,
+      allowOverwrite: true
     });
 
     return res.status(200).json({ ...blob, uploadedSize: finalBody.length });
