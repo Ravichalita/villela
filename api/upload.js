@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
   try {
     const blob = await put(`${folder}/${fileName}`, req, {
-      access: 'public',
+      access: 'private',
     });
 
     return res.status(200).json(blob);
