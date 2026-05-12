@@ -587,6 +587,8 @@ body {
           <label class="media-item"><input type="checkbox" value="Fotos no ambiente da clínica"> <span>Fotos no ambiente da clínica</span></label>
           <label class="media-item"><input type="checkbox" value="Nenhuma — precisamos produzir"> <span>Nenhuma — precisamos produzir</span></label>
         </div>
+        <input type="file" id="f_upload_midia" multiple accept="image/*,video/*" style="margin-top: 12px; font-size: 13px;" onchange="uploadFiles(this, 'midia_sobre', 'status_midia')">
+        <div id="status_midia" class="hint" style="color: var(--gold-dark); margin-top: 5px; display: none;"></div>
       </div>
     </div>
 
@@ -650,6 +652,8 @@ body {
           <label class="media-item"><input type="checkbox" value="Avaliações Google (capturas de tela)"> <span>Avaliações Google (capturas)</span></label>
           <label class="media-item"><input type="checkbox" value="Não possuo — vou coletar"> <span>Não possuo — vou coletar</span></label>
         </div>
+        <input type="file" id="f_upload_depo" multiple accept="image/*,video/*" style="margin-top: 12px; font-size: 13px;" onchange="uploadFiles(this, 'depoimentos', 'status_depo')">
+        <div id="status_depo" class="hint" style="color: var(--gold-dark); margin-top: 5px; display: none;"></div>
       </div>
     </div>
 
@@ -669,6 +673,8 @@ body {
           <label class="media-item"><input type="checkbox" value="Fachada externa"> <span>Fachada externa</span></label>
           <label class="media-item"><input type="checkbox" value="Equipamentos / tecnologia"> <span>Equipamentos / tecnologia</span></label>
         </div>
+        <input type="file" id="f_upload_fotos" multiple accept="image/*,video/*" style="margin-top: 12px; font-size: 13px;" onchange="uploadFiles(this, 'fotos_clinica', 'status_fotos')">
+        <div id="status_fotos" class="hint" style="color: var(--gold-dark); margin-top: 5px; display: none;"></div>
       </div>
 
       <div class="field">
@@ -753,6 +759,41 @@ body {
 const secs  = ['s1','s2','s3','s4','s5','s6','s7'];
 const names = ['Dados da clínica','Apresentação do profissional','Público-alvo e objetivos','Diferenciais e autoridade','Conteúdo e fotos','Oferta e CTA','Conclusão'];
 let cur = 0;
+
+async function uploadFiles(inputElement, folderName, statusId) {
+  const files = inputElement.files;
+  if (files.length === 0) return;
+
+  const statusEl = document.getElementById(statusId);
+  statusEl.style.display = 'block';
+  statusEl.textContent = 'Enviando arquivos...';
+
+  try {
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      statusEl.textContent = `Enviando arquivo ${i + 1} de ${files.length}...`;
+      
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        headers: {
+          'x-folder-name': folderName,
+          'x-file-name': encodeURIComponent(file.name)
+        },
+        body: file
+      });
+      
+      if (!response.ok) {
+        throw new Error('Falha no upload do arquivo ' + file.name);
+      }
+    }
+    statusEl.textContent = 'Todos os arquivos enviados com sucesso!';
+    statusEl.style.color = '#25D366'; // Green success
+  } catch (error) {
+    console.error(error);
+    statusEl.textContent = 'Erro ao enviar alguns arquivos. Tente novamente.';
+    statusEl.style.color = '#e74c3c'; // Red error
+  }
+}
 
 function goTo(n) {
   document.getElementById(secs[cur]).classList.remove('active');

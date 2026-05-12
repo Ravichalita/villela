@@ -1,0 +1,4 @@
+- [x] Inicializar projeto Node.js e instalar `@vercel/blob`
+- [x] Criar a Serverless Function em `api/upload.js` para receber uploads
+- [x] Adicionar campos de input para arquivos no `index.html`
+- [x] Implementar script de envio assíncrono dos arquivos para o `/api/upload` no frontend
