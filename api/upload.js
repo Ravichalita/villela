@@ -65,7 +65,7 @@ async function handler(req, res) {
     return res.status(200).json({ ...blob, uploadedSize: finalBody.length });
   } catch (error) {
     console.error('Error uploading file:', error);
-    return res.status(500).json({ error: 'Error uploading file' });
+    return res.status(500).json({ error: 'Error uploading file', details: error.message, stack: error.stack });
   }
 }
 

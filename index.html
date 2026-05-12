@@ -831,7 +831,12 @@ async function uploadFiles(inputElement, folderName, statusId) {
       });
       
       if (!response.ok) {
-        throw new Error('Falha no upload do arquivo ' + file.name);
+        let errDetails = '';
+        try {
+          const errBody = await response.json();
+          errDetails = errBody.details || JSON.stringify(errBody);
+        } catch (e) {}
+        throw new Error(`Falha no upload do arquivo ${file.name}: ${errDetails}`);
       }
     }
     statusEl.textContent = 'Todos os arquivos enviados com sucesso!';
@@ -997,7 +1002,12 @@ async function sendDocument() {
     });
 
     if (!response.ok) {
-      throw new Error('Falha ao enviar documento');
+      let errDetails = '';
+      try {
+        const errBody = await response.json();
+        errDetails = errBody.details || JSON.stringify(errBody);
+      } catch (e) {}
+      throw new Error(`Falha ao enviar documento: ${errDetails}`);
     }
     
     btn.textContent = 'Enviado!';
