@@ -46,13 +46,21 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Empty request body' });
     }
 
-    const blob = await put(filePath, fileData, {
+    // Para arquivos de texto (briefing.txt), convertemos o Buffer explicitamente
+    // para String. Algumas versões internas do Vercel Blob (undici/fetch)
+    // falham ao ler Buffers puros, resultando em uploads de 0 bytes.
+    let finalBody = fileData;
+    if (fileName.endsWith('.txt')) {
+      finalBody = Buffer.isBuffer(fileData) ? fileData.toString('utf8') : String(fileData);
+    }
+
+    const blob = await put(filePath, finalBody, {
       access: 'private',
       contentType: req.headers['content-type'] || 'application/octet-stream',
       addRandomSuffix: false
     });
 
-    return res.status(200).json(blob);
+    return res.status(200).json({ ...blob, uploadedSize: finalBody.length });
   } catch (error) {
     console.error('Error uploading file:', error);
     return res.status(500).json({ error: 'Error uploading file' });
