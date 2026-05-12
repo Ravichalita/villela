@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Briefing — Landing Page | Villela Odontologia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+
+<style>
+:root {
+  --blue:       #0f245d;
+  --blue-mid:   #1a3580;
+  --blue-light: #e8ecf5;
+  --gold:       #c3a47e;
+  --gold-light: #f5ede0;
+  --gold-dark:  #a8875f;
+  --white:      #ffffff;
+  --off-white:  #f9f7f4;
+  --gray-100:   #f2f0ed;
+  --gray-200:   #e4e1db;
+  --gray-400:   #b0a99e;
+  --gray-600:   #6b6358;
+  --gray-800:   #2d2822;
+  --text-main:  #1a1612;
+  --text-sub:   #5a5349;
+  --text-mute:  #8f8880;
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  16px;
+  --shadow-sm:  0 1px 4px rgba(15,36,93,.06);
+  --shadow-md:  0 4px 20px rgba(15,36,93,.10);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--off-white);
+  color: var(--text-main);
+  min-height: 100vh;
+  padding: 0;
+}
+
+/* ── PAGE SHELL ── */
+.page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 0 60px;
+}
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--blue);
+  padding: 28px 32px 24px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  overflow: hidden;
+}
+.site-header::after {
+  content: '';
+  position: absolute;
+  right: -40px; bottom: -40px;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: rgba(195,164,126,.08);
+  pointer-events: none;
+}
+.site-header::before {
+  content: '';
+  position: absolute;
+  right: 60px; top: -60px;
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: rgba(195,164,126,.05);
+  pointer-events: none;
+}
+
+.logo-wrap svg {
+  width: 260px;
+  height: auto;
+  display: block;
+}
+
+/* ── CARD CONTAINER ── */
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  margin: 28px 20px 0;
+  padding: 32px 28px 28px;
+  border: 1px solid var(--gray-200);
+}
+
+/* ── BRIEFING TITLE ROW ── */
+.brief-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 6px;
+}
+.brief-icon {
+  width: 42px; height: 42px;
+  background: var(--blue-light);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.brief-icon i { font-size: 20px; color: var(--blue); }
+.brief-title-text h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--blue);
+  letter-spacing: .3px;
+  line-height: 1.2;
+}
+.brief-title-text p {
+  font-size: 13px;
+  color: var(--text-sub);
+  margin-top: 4px;
+  line-height: 1.55;
+  font-weight: 300;
+}
+
+/* ── GOLD DIVIDER ── */
+.gold-line {
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold) 0%, transparent 80%);
+  margin: 20px 0 18px;
+}
+
+/* ── PROGRESS ── */
+.progress-track {
+  height: 3px;
+  background: var(--gray-200);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold));
+  border-radius: 3px;
+  transition: width .5s cubic-bezier(.4,0,.2,1);
+}
+.step-label {
+  font-size: 11px;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+.step-label strong { color: var(--gold-dark); font-weight: 600; }
+
+/* ── SECTION ── */
+.section { display: none; }
+.section.active { display: block; }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.section-header i {
+  font-size: 18px;
+  color: var(--gold);
+}
+.section-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--blue);
+  letter-spacing: .2px;
+}
+.section-desc {
+  font-size: 12.5px;
+  color: var(--text-mute);
+  margin-bottom: 22px;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ── FIELDS ── */
+.field { margin-bottom: 18px; }
+
+.field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 6px;
+}
+.field label .hint {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text-mute);
+  margin-top: 2px;
+}
+
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  padding: 9px 13px;
+  font-size: 13.5px;
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  color: var(--text-main);
+  background: var(--off-white);
+  transition: border-color .2s, box-shadow .2s, background .2s;
+  outline: none;
+}
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(195,164,126,.15);
+  background: var(--white);
+}
+.field textarea {
+  resize: vertical;
+  min-height: 82px;
+  line-height: 1.65;
+}
+
+/* ── TAGS ── */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.tag {
+  padding: 5px 13px;
+  border: 1px solid var(--gray-200);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 400;
+  cursor: pointer;
+  color: var(--text-sub);
+  background: var(--white);
+  transition: all .15s;
+  user-select: none;
+}
+.tag:hover { border-color: var(--gold); color: var(--blue); }
+.tag.sel {
+  border-color: var(--gold);
+  background: var(--gold-light);
+  color: var(--blue);
+  font-weight: 500;
+}
+
+/* ── RADIO / CHECKBOX ITEMS ── */
+.radio-group,
+.media-group { display: flex; flex-direction: column; gap: 7px; }
+.media-group { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+
+.radio-item,
+.media-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 13px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-main);
+  background: var(--off-white);
+  transition: border-color .15s, background .15s;
+  line-height: 1.4;
+}
+.radio-item:hover, .media-item:hover { border-color: var(--gold); background: var(--gold-light); }
+
+.radio-item input[type=radio],
+.media-item input[type=checkbox] {
+  accent-color: var(--gold-dark);
+  width: 15px; height: 15px;
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+/* override field style for inline inputs */
+.radio-item input, .media-item input {
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  background: transparent !important;
+  width: 15px !important;
+}
+
+.radio-item.checked,
+.media-item.checked {
+  border-color: var(--gold);
+  background: var(--gold-light);
+}
+
+/* ── NAV BUTTONS ── */
+.btn-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 28px;
+  gap: 10px;
+}
+
+.btn-back {
+  background: transparent;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  padding: 9px 22px;
+  font-size: 13px;
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+  color: var(--text-sub);
+  cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  transition: all .15s;
+}
+.btn-back:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+
+.btn-next {
+  background: var(--blue);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 9px 26px;
+  font-size: 13px;
+  font-family: 'Jost', sans-serif;
+  font-weight: 500;
+  color: var(--white);
+  cursor: pointer;
+  display: flex; align-items: center; gap: 7px;
+  letter-spacing: .3px;
+  transition: background .15s, transform .1s;
+  box-shadow: 0 2px 10px rgba(15,36,93,.25);
+}
+.btn-next:hover { background: var(--blue-mid); transform: translateY(-1px); }
+.btn-next:active { transform: translateY(0); }
+
+.btn-copy {
+  background: var(--gold-dark);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 9px 22px;
+  font-size: 13px;
+  font-family: 'Jost', sans-serif;
+  font-weight: 500;
+  color: var(--white);
+  cursor: pointer;
+  display: flex; align-items: center; gap: 7px;
+  letter-spacing: .3px;
+  transition: background .15s, transform .1s;
+  box-shadow: 0 2px 10px rgba(168,135,95,.3);
+}
+.btn-copy:hover { background: var(--blue); transform: translateY(-1px); }
+
+.btn-wpp {
+  background: #25D366;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 9px 22px;
+  font-size: 13px;
+  font-family: 'Jost', sans-serif;
+  font-weight: 500;
+  color: var(--white);
+  cursor: pointer;
+  display: flex; align-items: center; gap: 7px;
+  letter-spacing: .3px;
+  transition: background .15s, transform .1s;
+  box-shadow: 0 2px 10px rgba(37,211,102,.3);
+}
+.btn-wpp:hover { background: #1ebe5d; transform: translateY(-1px); }
+.btn-wpp:active { transform: translateY(0); }
+
+.action-btns {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ── RESULT BOX ── */
+.result-box {
+  background: var(--blue);
+  border-radius: var(--radius-md);
+  padding: 20px 18px;
+  font-size: 12px;
+  line-height: 1.95;
+  color: #d4dcf0;
+  white-space: pre-wrap;
+  max-height: 440px;
+  overflow-y: auto;
+  font-family: 'Courier New', monospace;
+  border: 1px solid #1a3580;
+}
+.result-box::-webkit-scrollbar { width: 5px; }
+.result-box::-webkit-scrollbar-track { background: transparent; }
+.result-box::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+.success-msg {
+  font-size: 12px;
+  color: var(--gold-dark);
+  margin-top: 10px;
+  display: none;
+  font-weight: 500;
+  letter-spacing: .3px;
+}
+
+/* ── FOOTER ── */
+.site-footer {
+  text-align: center;
+  padding: 24px 20px 0;
+  font-size: 11px;
+  color: var(--text-mute);
+  letter-spacing: .3px;
+}
+.site-footer span { color: var(--gold-dark); }
+
+/* ── ANIMATIONS ── */
+.section.active {
+  animation: fadeUp .3s ease both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="logo-wrap">
+      <!-- Villela SVG logo — fill overridden to white -->
+      <svg viewBox="0 0 544.42 190.57" xmlns="http://www.w3.org/2000/svg" aria-label="Villela Odontologia">
+        <g>
+          <g fill="#ffffff">
+            <path d="M281.56,141.12h-55.1s.03-113.38.03-113.38l-9.13.17-.04,115.13,64.47-.02c.52-.56.56-1.48-.24-1.9Z"/>
+            <path d="M155.69,17.68c-2.55-7.48-9.5-12.12-16.57-14.75-18.3-6.8-40.95-1.71-52.49,14.4-4.23,5.9-6.49,12.45-8.29,19.43-2.87,11.13-6.28,21.54-10.04,32.45l-19.68,57.1-15-34.77L6.62,28.03c-2.29-.3-4.33-.32-6.62-.03l35.88,86.33,12.18,28.97c1,.36,2.49.26,3.43-.1L89,31.59c2.13-6.35,5.15-11.96,8.95-17.2C108.53-.14,125.08-1.63,141.08,5.03c6.41,2.67,9.95,7.36,14.62,12.65Z"/>
+            <path d="M202.26,141.13h-55.02s0-113.38,0-113.38l-9.14-.09.02,115.35h64.36c.75-.45.8-1.61-.22-1.89Z"/>
+            <rect x="105.04" y="27.66" width="9.13" height="115.41"/>
+            <path d="M305.66,141.15l.03-67.65,46.15-.02c.28-1.03.12-1.45-.01-1.85l-46.16-.03.02-42.02h53.88c.32-.79.26-1.44-.02-1.97l-63.04.09.02,115.35,64.49-.03c.2-.72.19-1.21,0-1.91l-55.37.03Z"/>
+            <path d="M512.18,70.21l-18.75-42.48-9.92-.05,2.26,5.58-47.37,107.91-48.23-.04.02-113.38-9.1.15-.02,115.14h58.75s26.49-60.55,26.49-60.55l41.39.02,26.73,60.4,9.98-.02-32.24-72.67ZM467.12,80.55l19.81-45.04,19.79,44.91-39.6.13Z"/>
+          </g>
+          <g fill="#c3a47e">
+            <path d="M421.74,178.61c-.31.41-.22,1.98.48,2l8.3.19c-.44,4.91-4.17,7.79-8.62,7.46-4.32-.32-7.47-3.65-7.62-8.32-.12-3.83,1.48-7.15,4.77-8.56,3.21-1.37,7.35-1.01,9.55,2.02.93,1.28,1.97,1.96,3.7,1.28-1.43-3.9-4.96-6.24-9.17-6.42-6.28-.27-11.21,4.37-11.44,10.62-.14,3.8,1.26,7.1,3.98,9.33,2.61,2.14,6.06,2.81,9.62,2.03,5.32-1.15,8.3-6.19,7.8-11.63l-11.35-.02Z"/>
+            <path d="M241.41,178.62l.12,2.04,8.72.3c-.47,2.44-1.14,3.95-2.48,5.26-2.53,2.46-6.38,2.67-9.57,1.02-2.62-1.35-4.21-4.43-4.2-7.82.01-3.69,1.88-6.93,4.91-8.13,7.12-2.82,10.05,3.26,10.69,3.48.88.3,2.03.28,2.35-.44-2.3-5.17-8.03-7.12-13.07-5.55-4.9,1.53-7.78,6.14-7.45,11.55.37,5.99,5.02,10.34,11.09,10.23,6.56-.12,11.12-5.65,10.17-11.99l-11.29.04Z"/>
+            <path d="M109.51,168.73l-.12,16.99-11.06-16.63c-.44-.66-1.83-.69-2.73-.34l-.02,21.43c.86.21,1.42.21,2.49.13l.22-17.2,10.79,16.51c.44.67,2.81,1.18,2.81.31l.15-21.13c-.92-.27-1.61-.3-2.54-.06Z"/>
+            <path d="M351.31,168.71l-.06,17.01-11.04-16.55c-.54-.81-2.05-.73-2.85-.39l.03,21.48c1.09.08,1.61.13,2.55-.08l.07-17.07,10.24,15.72c.54.83,1.01,1.28,1.57,1.49.75.28,1.96.16,1.96-.87v-20.74s-2.48,0-2.48,0Z"/>
+            <path d="M392.09,188.14l.07-7.79,7.85-.02v-1.97s-7.94-.08-7.94-.08v-7.58s8.85-.01,8.85-.01c.18-.81.18-1.66-.19-2.13l-11.19.06.05,21.7,11.09-.03c.43-.38.45-1.41.23-2.1l-8.83-.05Z"/>
+            <path d="M364.76,168.61c-.51.19-.51,1.94-.01,2.07l5.53.07.03,19.41c1.01.31,1.96.24,2.57-.19l-.05-19.21,5.75-.03c.17-.76.19-1.28-.06-2.13l-13.76.02Z"/>
+            <path d="M136.72,168.65l-13.76-.02c-.18.84-.21,1.31-.1,2.12h5.83s.01,19.52.01,19.52c1.02.19,1.69.26,2.54-.29l-.05-19.26,5.54-.05c.52-.05.52-1.97,0-2.01Z"/>
+            <path d="M182.23,188.09l-.02-19.35c-.97-.16-1.7-.18-2.49-.02l.04,21.57,9.99-.05c.21-.8.19-1.52-.08-2.07l-7.45-.08Z"/>
+            <rect x="322.56" y="168.56" width="2.56" height="21.77"/>
+            <rect x="263.99" y="168.59" width="2.64" height="21.71"/>
+            <path d="M157.64,168.4c-6.1,0-11.05,4.95-11.05,11.05s4.95,11.05,11.05,11.05,11.05-4.95,11.05-11.05-4.95-11.05-11.05-11.05ZM157.87,188.36c-4.97.08-8.54-3.75-8.52-8.95.02-4.95,3.3-8.72,8-8.86,4.73-.14,8.41,3.3,8.51,8.6.11,5.38-3.22,9.14-7.99,9.22Z"/>
+            <path d="M505.52,168.63h-7.96s.01,21.67.01,21.67l8.94-.14c5.53-.09,9.2-4.72,9.24-10.49.04-6.23-4.23-11.05-10.23-11.04ZM505.96,188.05h-5.9s0-17.33,0-17.33l6.26.24c4.38.17,6.82,4.14,6.81,8.7,0,4.66-2.67,8.38-7.17,8.39Z"/>
+            <path d="M42.44,168.67l-8.33-.04.02,21.67,8.33-.06c6.01-.04,9.95-4.92,9.77-11.07-.18-5.92-4.03-10.46-9.78-10.49ZM42.44,188.03l-5.77.05-.04-17.31c2.45-.12,4.55-.19,6.68.22,4.07.78,6.38,4.36,6.32,8.67-.06,4.6-2.77,8.34-7.19,8.38Z"/>
+            <path d="M458.37,174.12c-.3-2.91-2.75-5.49-6.07-5.48l-7.87.03-.03,21.49c.98.21,1.52.2,2.51.04l-.03-8.74c1.17-.32,2.48-.32,3.82.06l5.02,8.57c.38.65,2.31.32,2.74,0l-5.09-8.99c3.52-.73,5.35-3.67,5.01-6.98ZM446.93,179.16v-8.42c2.07-.05,4.36-.35,6.49.4,2.09.73,2.73,2.84,2.33,4.79-.37,1.81-1.85,3.37-4.06,3.33l-4.77-.1Z"/>
+            <path d="M476.17,169.04l-7.59,20.99c.94.58,2.4.44,2.67-.29l1.66-4.55,9.53-.02,1.85,4.81c.18.46,1.68.52,2.67.15l-7.83-21.1c-.24-.65-2.69-.63-2.95,0ZM473.72,182.95l3.92-10.88,4.02,10.75-7.93.13Z"/>
+            <path d="M73.39,168.34c-6.13,0-11.1,4.97-11.1,11.1s4.97,11.1,11.1,11.1,11.1-4.97,11.1-11.1-4.97-11.1-11.1-11.1ZM73.45,188.34c-5.05.02-8.59-4.16-8.34-9.39.22-4.64,3.46-8.19,7.83-8.41,4.68-.24,8.43,3.09,8.8,8.2.4,5.45-3.35,9.58-8.29,9.6Z"/>
+            <path d="M536.02,168.94c-.44-.58-2.74-.55-2.98.1l-7.6,21c.66.39,2.03.39,2.37-.05,1.08-1.42,1.31-3.09,1.96-4.83l9.72.09,1.68,4.73c.22.61,1.98.43,2.56.05l-7.71-21.1ZM530.55,183.04l3.97-10.99,4,10.82-7.97.16Z"/>
+            <path d="M210.32,168.34c-6.13,0-11.09,4.97-11.09,11.09s4.97,11.09,11.09,11.09,11.09-4.97,11.09-11.09-4.97-11.09-11.09-11.09ZM210.59,188.34c-4.96.03-8.6-3.71-8.59-8.94,0-4.83,3.42-8.68,8.05-8.81,4.57-.13,8.42,3.4,8.56,8.55.15,5.33-3.37,9.18-8.03,9.21Z"/>
+            <path d="M285.1,168.84l-7.64,21.22c.61.47,2.37.62,2.64-.08l1.87-4.82,9.28-.04,1.87,4.71c.28.71,1.83.7,2.6.22l-7.77-21.18c-.53-.45-2.29-.47-2.85-.03ZM282.62,182.99l3.91-11.08,4.04,11.07h-7.95Z"/>
+            <path d="M12.04,168.37c-6.11,0-11.07,4.96-11.07,11.07s4.96,11.07,11.07,11.07,11.07-4.96,11.07-11.07-4.96-11.07-11.07-11.07ZM12.03,188.34c-4.77.02-8.37-3.87-8.38-8.93,0-4.81,3.42-8.66,7.88-8.83,4.93-.19,8.69,3.37,8.79,8.65.1,5.34-3.45,9.08-8.29,9.11Z"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </header>
+
+  <!-- MAIN CARD -->
+  <main class="card" role="main">
+
+    <div class="brief-title">
+      <div class="brief-icon"><i class="ti ti-clipboard-list"></i></div>
+      <div class="brief-title-text">
+        <h1>Briefing — Landing Page</h1>
+        <p>Preencha as perguntas abaixo para que possamos criar a melhor landing page para sua clínica.</p>
+      </div>
+    </div>
+
+    <div class="gold-line"></div>
+
+    <div class="progress-track">
+      <div class="progress-fill" id="pbar" style="width:16.6%"></div>
+    </div>
+    <p class="step-label">Seção <strong id="sc">1</strong> de 6 &nbsp;—&nbsp; <strong id="sname">Dados da clínica</strong></p>
+
+    <!-- S1 -->
+    <div class="section active" id="s1">
+      <div class="section-header">
+        <i class="ti ti-building-hospital"></i>
+        <h2>Dados da clínica</h2>
+      </div>
+      <p class="section-desc">Informações essenciais para identificar e apresentar a clínica na página.</p>
+
+      <div class="field">
+        <label>Nome da clínica / profissional</label>
+        <input type="text" id="f_nome" placeholder="Ex: Clínica Dr. Rafael Mendes | Odontologia Avançada">
+      </div>
+
+      <div class="field">
+        <label>Principais procedimentos realizados
+          <span class="hint">Marque todos que se aplicam</span>
+        </label>
+        <div class="tag-row" id="procs">
+          <span class="tag" onclick="toggleTag(this)">Implantes</span>
+          <span class="tag" onclick="toggleTag(this)">Invisalign</span>
+          <span class="tag" onclick="toggleTag(this)">Clareamento</span>
+          <span class="tag" onclick="toggleTag(this)">Odontopediatria</span>
+          <span class="tag" onclick="toggleTag(this)">Facetas / Lentes</span>
+          <span class="tag" onclick="toggleTag(this)">Ortodontia</span>
+          <span class="tag" onclick="toggleTag(this)">Prótese dentária</span>
+          <span class="tag" onclick="toggleTag(this)">Endodontia (canal)</span>
+          <span class="tag" onclick="toggleTag(this)">Periodontia</span>
+          <span class="tag" onclick="toggleTag(this)">Cirurgia oral</span>
+          <span class="tag" onclick="toggleTag(this)">Estética dental</span>
+          <span class="tag" onclick="toggleTag(this)">Clínica geral</span>
+        </div>
+        <input type="text" id="f_outros_proc" placeholder="Outros procedimentos não listados...">
+      </div>
+
+      <div class="field">
+        <label>Serviço "carro-chefe" desta landing page
+          <span class="hint">O procedimento que queremos destacar e converter nesta campanha específica</span>
+        </label>
+        <input type="text" id="f_carro" placeholder="Ex: Implante dentário com protocolo All-on-4">
+      </div>
+
+      <div class="field">
+        <label>Endereço físico</label>
+        <input type="text" id="f_end" placeholder="Ex: Rua das Flores, 123 — Ipanema, Rio de Janeiro / RJ">
+      </div>
+
+      <div class="field">
+        <label>Horário de atendimento</label>
+        <input type="text" id="f_hora" placeholder="Ex: Seg a Sex das 8h às 18h | Sáb das 8h às 13h">
+      </div>
+    </div>
+
+    <!-- S2 -->
+    <div class="section" id="s2">
+      <div class="section-header">
+        <i class="ti ti-user-circle"></i>
+        <h2>Apresentação do profissional</h2>
+      </div>
+      <p class="section-desc">Informações para a seção "Sobre" da landing page — humaniza e gera confiança.</p>
+
+      <div class="field">
+        <label>Breve apresentação do profissional
+          <span class="hint">Formação, experiência e filosofia de atendimento (o paciente precisa se identificar)</span>
+        </label>
+        <textarea id="f_bio" placeholder="Ex: Formada pela UFRJ com especialização em Implantodontia pela USP, a Dra. Ana Lima tem 12 anos de experiência transformando sorrisos..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>Registro profissional (CRO)
+          <span class="hint">Obrigatório para exibição na página</span>
+        </label>
+        <input type="text" id="f_cro" placeholder="Ex: CRO-RJ 12345">
+      </div>
+
+      <div class="field">
+        <label>Mídia disponível para a seção "Sobre"
+          <span class="hint">Selecione o que está disponível para envio</span>
+        </label>
+        <div class="media-group" id="midia">
+          <label class="media-item"><input type="checkbox" value="Foto profissional de rosto"> <span>Foto profissional de rosto</span></label>
+          <label class="media-item"><input type="checkbox" value="Vídeo de apresentação (até 1 min)"> <span>Vídeo de apresentação (até 1 min)</span></label>
+          <label class="media-item"><input type="checkbox" value="Fotos no ambiente da clínica"> <span>Fotos no ambiente da clínica</span></label>
+          <label class="media-item"><input type="checkbox" value="Nenhuma — precisamos produzir"> <span>Nenhuma — precisamos produzir</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- S3 -->
+    <div class="section" id="s3">
+      <div class="section-header">
+        <i class="ti ti-target"></i>
+        <h2>Público-alvo e objetivos</h2>
+      </div>
+      <p class="section-desc">Definir quem queremos alcançar e o que queremos que o visitante faça ao acessar a página.</p>
+
+      <div class="field">
+        <label>Quem é o cliente ideal?
+          <span class="hint">Faixa etária, classe social e principais queixas desse público</span>
+        </label>
+        <textarea id="f_publico" placeholder="Ex: Adultos entre 35–60 anos, classe B/A, que perderam dentes e se sentem inseguros para sorrir..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>Objetivo principal da landing page</label>
+        <div class="radio-group" id="obj">
+          <label class="radio-item"><input type="radio" name="obj" value="Agendamento via WhatsApp"> <span>Agendamento via WhatsApp</span></label>
+          <label class="radio-item"><input type="radio" name="obj" value="Preenchimento de formulário de contato"> <span>Preenchimento de formulário de contato</span></label>
+          <label class="radio-item"><input type="radio" name="obj" value="Ligação direta (clique para ligar)"> <span>Ligação direta (clique para ligar)</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Qual é a maior dúvida ou medo dos pacientes na primeira consulta?
+          <span class="hint">A landing page pode antecipar e quebrar essas objeções</span>
+        </label>
+        <textarea id="f_medo" placeholder="Ex: Medo da dor, preocupação com o custo, insegurança sobre se o implante vai funcionar..."></textarea>
+      </div>
+    </div>
+
+    <!-- S4 -->
+    <div class="section" id="s4">
+      <div class="section-header">
+        <i class="ti ti-award"></i>
+        <h2>Diferenciais e autoridade</h2>
+      </div>
+      <p class="section-desc">O que vai convencer o visitante de que sua clínica é a escolha certa.</p>
+
+      <div class="field">
+        <label>Por que o paciente deve escolher sua clínica?
+          <span class="hint">Seja específico — diferenciais genéricos não convencem</span>
+        </label>
+        <textarea id="f_dif" placeholder="Ex: Scanner intraoral 3D, sedação consciente, estacionamento próprio, 15 anos de experiência em implantes..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>Selos, certificações ou prêmios</label>
+        <textarea id="f_selos" style="min-height:60px" placeholder="Ex: Fellow da ABO, certificação Invisalign Diamond, prêmio Top Dentista 2023..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>Depoimentos de pacientes disponíveis</label>
+        <div class="media-group" id="depo">
+          <label class="media-item"><input type="checkbox" value="Depoimentos em vídeo"> <span>Depoimentos em vídeo</span></label>
+          <label class="media-item"><input type="checkbox" value="Depoimentos em texto / print"> <span>Depoimentos em texto / print</span></label>
+          <label class="media-item"><input type="checkbox" value="Avaliações Google (capturas de tela)"> <span>Avaliações Google (capturas)</span></label>
+          <label class="media-item"><input type="checkbox" value="Não possuo — vou coletar"> <span>Não possuo — vou coletar</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- S5 -->
+    <div class="section" id="s5">
+      <div class="section-header">
+        <i class="ti ti-photo"></i>
+        <h2>Conteúdo e fotos</h2>
+      </div>
+      <p class="section-desc">Fotos reais são fundamentais para transmitir credibilidade — imagens de banco de dados reduzem a conversão.</p>
+
+      <div class="field">
+        <label>Fotos da clínica disponíveis</label>
+        <div class="media-group" id="fotos_clinica">
+          <label class="media-item"><input type="checkbox" value="Recepção / sala de espera"> <span>Recepção / sala de espera</span></label>
+          <label class="media-item"><input type="checkbox" value="Consultórios"> <span>Consultórios</span></label>
+          <label class="media-item"><input type="checkbox" value="Fachada externa"> <span>Fachada externa</span></label>
+          <label class="media-item"><input type="checkbox" value="Equipamentos / tecnologia"> <span>Equipamentos / tecnologia</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Fotos da equipe disponíveis</label>
+        <div class="media-group" id="fotos_equipe">
+          <label class="media-item"><input type="checkbox" value="Foto individual do(a) dentista principal"> <span>Foto do(a) dentista principal</span></label>
+          <label class="media-item"><input type="checkbox" value="Fotos da equipe em atendimento"> <span>Equipe em atendimento</span></label>
+          <label class="media-item"><input type="checkbox" value="Fotos de antes e depois (casos clínicos)"> <span>Fotos antes e depois</span></label>
+          <label class="media-item"><input type="checkbox" value="Não possuo fotos profissionais"> <span>Não possuo fotos profissionais</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Observações sobre o material <span class="hint">Formato, quantidade, qualidade — qualquer detalhe relevante</span></label>
+        <textarea id="f_obs_foto" style="min-height:60px" placeholder="Ex: Temos 15 fotos profissionais em alta resolução de uma sessão realizada em março..."></textarea>
+      </div>
+    </div>
+
+    <!-- S6 -->
+    <div class="section" id="s6">
+      <div class="section-header">
+        <i class="ti ti-speakerphone"></i>
+        <h2>Oferta e call to action</h2>
+      </div>
+      <p class="section-desc">O que vamos oferecer para reduzir a barreira de entrada e levar o visitante à ação.</p>
+
+      <div class="field">
+        <label>Oferta especial para quem vier pela página
+          <span class="hint">Uma isca irresistível aumenta muito a taxa de conversão</span>
+        </label>
+        <textarea id="f_oferta" placeholder="Ex: Avaliação completa sem custo | Parcelamento em até 24x sem juros | 1ª consulta com desconto..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>Frase para o botão de ação (CTA)
+          <span class="hint">Pode sugerir mais de uma opção</span>
+        </label>
+        <textarea id="f_cta" style="min-height:60px" placeholder='"Quero meu sorriso novo" / "Agendar minha avaliação gratuita" / "Falar com o especialista"'></textarea>
+      </div>
+
+      <div class="field">
+        <label>Número de WhatsApp para receber os contatos</label>
+        <input type="text" id="f_wpp" placeholder="Ex: (21) 99999-0000">
+      </div>
+    </div>
+
+    <!-- S7: Resultado -->
+    <div class="section" id="s7">
+      <div class="section-header">
+        <i class="ti ti-check"></i>
+        <h2>Briefing gerado!</h2>
+      </div>
+      <p class="section-desc">Resumo completo das respostas. Copie e use como base para iniciar o projeto.</p>
+      <div id="result-box" class="result-box"></div>
+      <div class="btn-row" style="margin-top:16px">
+        <button class="btn-back" onclick="goTo(5)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Voltar e editar</button>
+        <div class="action-btns">
+          <button class="btn-copy" onclick="copyBriefing()"><i class="ti ti-copy"></i> Copiar briefing</button>
+          <button class="btn-wpp" onclick="shareWhatsApp()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Enviar pelo WhatsApp
+          </button>
+        </div>
+      </div>
+      <p class="success-msg" id="copy-ok"><i class="ti ti-check"></i> Briefing copiado com sucesso!</p>
+    </div>
+
+    <!-- NAV ROW -->
+    <div class="btn-row" id="nav-row">
+      <button class="btn-back" id="btn-back" onclick="goBack()" style="visibility:hidden"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Voltar</button>
+      <button class="btn-next" id="btn-next" onclick="goNext()">Próxima seção <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <span>Villela Odontologia</span> &nbsp;·&nbsp; Briefing para Landing Page
+  </footer>
+</div>
+
+<script>
+const secs  = ['s1','s2','s3','s4','s5','s6','s7'];
+const names = ['Dados da clínica','Apresentação do profissional','Público-alvo e objetivos','Diferenciais e autoridade','Conteúdo e fotos','Oferta e CTA','Conclusão'];
+let cur = 0;
+
+function goTo(n) {
+  document.getElementById(secs[cur]).classList.remove('active');
+  cur = n;
+  document.getElementById(secs[cur]).classList.add('active');
+  document.getElementById('pbar').style.width = ((cur + 1) / secs.length * 100) + '%';
+  document.getElementById('sc').textContent   = cur + 1;
+  document.getElementById('sname').textContent = names[cur];
+  const back = document.getElementById('btn-back');
+  const next = document.getElementById('btn-next');
+  const nav  = document.getElementById('nav-row');
+  if (cur === secs.length - 1) {
+    nav.style.display = 'none';
+  } else {
+    nav.style.display = 'flex';
+    back.style.visibility = cur === 0 ? 'hidden' : 'visible';
+    next.innerHTML = cur === secs.length - 2
+      ? 'Ver briefing <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>'
+      : 'Próxima seção <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+  }
+}
+
+function goBack() { if (cur > 0) goTo(cur - 1); }
+function goNext() { if (cur === secs.length - 2) generateBriefing(); if (cur < secs.length - 1) goTo(cur + 1); }
+function toggleTag(el) { el.classList.toggle('sel'); }
+
+document.querySelectorAll('.media-item').forEach(el => {
+  el.addEventListener('click', function(e) {
+    if (e.target.tagName !== 'INPUT') { const cb = this.querySelector('input'); cb.checked = !cb.checked; }
+    this.classList.toggle('checked', this.querySelector('input').checked);
+  });
+});
+document.querySelectorAll('.radio-item').forEach(el => {
+  el.addEventListener('click', function(e) {
+    const nm = this.querySelector('input').name;
+    document.querySelectorAll('.radio-item').forEach(r => {
+      if (r.querySelector('input') && r.querySelector('input').name === nm) r.classList.remove('checked');
+    });
+    if (e.target.tagName !== 'INPUT') this.querySelector('input').checked = true;
+    this.classList.add('checked');
+  });
+});
+
+function getCheckedMedia(id) { return [...document.querySelectorAll('#' + id + ' input:checked')].map(i => i.value).join(', ') || 'Não informado'; }
+function getRadio(name) { const el = document.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : 'Não informado'; }
+function getVal(id) { return document.getElementById(id)?.value?.trim() || 'Não informado'; }
+function getTags(id) { return [...document.querySelectorAll('#' + id + ' .sel')].map(t => t.textContent).join(', ') || 'Não informado'; }
+
+function generateBriefing() {
+  const b = `═══════════════════════════════════════════
+BRIEFING — LANDING PAGE ODONTOLÓGICA
+Villela Odontologia
+═══════════════════════════════════════════
+
+1. DADOS DA CLÍNICA
+───────────────────────────────────────────
+• Nome da clínica / profissional:
+  ${getVal('f_nome')}
+
+• Principais procedimentos realizados:
+  ${getTags('procs')}${getVal('f_outros_proc') !== 'Não informado' ? ' | ' + getVal('f_outros_proc') : ''}
+
+• Serviço carro-chefe desta landing page:
+  ${getVal('f_carro')}
+
+• Endereço físico:
+  ${getVal('f_end')}
+
+• Horário de atendimento:
+  ${getVal('f_hora')}
+
+
+2. APRESENTAÇÃO DO PROFISSIONAL
+───────────────────────────────────────────
+• Breve apresentação:
+  ${getVal('f_bio')}
+
+• Registro profissional (CRO):
+  ${getVal('f_cro')}
+
+• Mídia disponível para a seção "Sobre":
+  ${getCheckedMedia('midia')}
+
+
+3. PÚBLICO-ALVO E OBJETIVOS
+───────────────────────────────────────────
+• Cliente ideal:
+  ${getVal('f_publico')}
+
+• Objetivo principal da landing page:
+  ${getRadio('obj')}
+
+• Maior dúvida / medo na primeira consulta:
+  ${getVal('f_medo')}
+
+
+4. DIFERENCIAIS E AUTORIDADE
+───────────────────────────────────────────
+• Por que escolher esta clínica:
+  ${getVal('f_dif')}
+
+• Selos, certificações e prêmios:
+  ${getVal('f_selos')}
+
+• Depoimentos de pacientes disponíveis:
+  ${getCheckedMedia('depo')}
+
+
+5. CONTEÚDO E FOTOS
+───────────────────────────────────────────
+• Fotos da clínica disponíveis:
+  ${getCheckedMedia('fotos_clinica')}
+
+• Fotos da equipe disponíveis:
+  ${getCheckedMedia('fotos_equipe')}
+
+• Observações sobre o material:
+  ${getVal('f_obs_foto')}
+
+
+6. OFERTA E CALL TO ACTION
+───────────────────────────────────────────
+• Oferta especial para quem vier pela página:
+  ${getVal('f_oferta')}
+
+• Frase para o botão de ação (CTA):
+  ${getVal('f_cta')}
+
+• WhatsApp para receber contatos:
+  ${getVal('f_wpp')}
+
+═══════════════════════════════════════════`;
+  document.getElementById('result-box').textContent = b;
+}
+
+function copyBriefing() {
+  navigator.clipboard.writeText(document.getElementById('result-box').textContent).then(() => {
+    const msg = document.getElementById('copy-ok');
+    msg.style.display = 'block';
+    setTimeout(() => { msg.style.display = 'none'; }, 3000);
+  });
+}
+
+function shareWhatsApp() {
+  const text = document.getElementById('result-box').textContent;
+  const encoded = encodeURIComponent(text);
+  const phone = '5532984304486';
+  window.open('https://wa.me/' + phone + '?text=' + encoded, '_blank');
+}
+</script>
+</body>
+</html>
